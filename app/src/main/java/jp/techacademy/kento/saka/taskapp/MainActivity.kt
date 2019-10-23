@@ -10,11 +10,7 @@ import android.content.Intent
 import android.support.v7.app.AlertDialog
 import android.app.AlarmManager
 import android.app.PendingIntent
-import kotlinx.android.synthetic.main.content_input.*
-import android.util.Log
-import android.view.View
 
-import io.realm.RealmResults
 
 
 
@@ -36,6 +32,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var count:Int=0
+
+        button.setOnClickListener {
+
+            if(count==0) {
+                search()
+                button.text="全て"
+                count=1
+            }else{
+                reloadListView()
+                button.text="絞り込み"
+                count=0
+            }
+        }
 
         fab.setOnClickListener { view ->
             val intent = Intent(this@MainActivity, InputActivity::class.java)
@@ -49,11 +59,6 @@ class MainActivity : AppCompatActivity() {
 
         // ListViewの設定
         mTaskAdapter = TaskAdapter(this@MainActivity)
-
-        //検索機能
-        /*if(edittext1.text.toString()==category_edit_text.text.toString()){
-            Log.d("test","a")
-        }*/
 
 
 
